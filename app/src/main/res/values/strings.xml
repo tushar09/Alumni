@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Alumni</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_regestration">Regestration</string>
+
+    <string name="facebook_app_id">1249792331727360</string>
+    <string name="title_activity_sign_uo">SignUo</string>
+
+</resources>
