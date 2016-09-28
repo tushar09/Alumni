@@ -1,6 +1,7 @@
 package tech.triumphit.alumni;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,12 +47,15 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import tech.triumphit.alumni.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,29 +66,78 @@ public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.toolbar.setTitle("Alumni Login");
 
         ButterKnife.bind(this);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SignUp.class));
+            }
+        });
+
+        binding.content.textView10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!binding.content.inputEmail.getText().toString().equals("") && !binding.content.inputPassword.getText().toString().equals("") ){
+                    StringRequest sr = new StringRequest(Request.Method.POST, "http://triumphit.tech/project_alumni/login.php",
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
+                                    Log.e("php error", response);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    NetworkResponse networkResponse = error.networkResponse;
+                                    if (networkResponse != null) {
+                                        Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                                    }
+
+                                    if (error instanceof TimeoutError) {
+                                        Log.e("Volley", "TimeoutError " + error.toString());
+                                    }else if(error instanceof NoConnectionError){
+                                        Log.e("Volley", "NoConnectionError");
+                                    } else if (error instanceof AuthFailureError) {
+                                        Log.e("Volley", "AuthFailureError");
+                                    } else if (error instanceof ServerError) {
+                                        Log.e("Volley", "ServerError");
+                                    } else if (error instanceof NetworkError) {
+                                        Log.e("Volley", "NetworkError");
+                                    } else if (error instanceof ParseError) {
+                                        Log.e("Volley", "ParseError");
+                                    }
+                                }
+                            }){
+                        @Override
+                        protected Map<String, String> getParams(){
+                            Map<String, String> params = new HashMap<String, String>();
+
+                            params.put("email", binding.content.inputEmail.getText().toString());
+                            params.put("pass", binding.content.inputPassword.getText().toString());
+
+                            return params;
+                        }
+                    };
+                    sr.setRetryPolicy(new DefaultRetryPolicy(
+                            180000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                    requestQueue.add(sr);
+                }else{
+                    Toast.makeText(MainActivity.this, "Pelase fill up all the field", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

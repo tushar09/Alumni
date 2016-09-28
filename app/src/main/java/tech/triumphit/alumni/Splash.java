@@ -39,6 +39,7 @@ public class Splash extends AppCompatActivity {
     @BindView(R.id.textView2)TextView aSociety;
     private AccessTokenTracker accessTokenTracker;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -64,10 +64,6 @@ public class Home extends AppCompatActivity {
                 LoginManager.getInstance().logOut();
             }
         });
-//        mFragmentManager = getSupportFragmentManager();
-//        mFragmentTransaction = mFragmentManager.beginTransaction();
-//        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
-
 
     }
 

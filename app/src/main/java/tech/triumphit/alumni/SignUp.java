@@ -73,6 +73,7 @@ public class SignUp extends AppCompatActivity {
         List< String > permissionNeeds = Arrays.asList("user_photos", "email",
                 "user_birthday", "public_profile");
         binding.sign.logbutton.setReadPermissions(permissionNeeds);
+        binding.toolbar.setTitle("Alumni Sign Up");
 //        setContentView(R.layout.activity_sign_up);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
