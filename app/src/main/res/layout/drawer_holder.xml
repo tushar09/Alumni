@@ -1,141 +1,72 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.inmobi.ads"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolbar"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="" >
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:autoLink="all"
-                android:id="@+id/textView46"
-                android:singleLine="true"
-                android:layout_marginBottom="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#ffffff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-            <TextView
-                android:textColor="#ffffff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Home"
-                android:id="@+id/textView45"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:autoLink="web"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
-                android:layout_marginBottom="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=""
-                android:textColor="#fff"
-                android:id="@+id/textView47"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/textView46"
-                android:layout_toEndOf="@+id/textView46" />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <RelativeLayout
-            android:id="@+id/containerView"
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/home"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="Home" >
+        </android.support.v7.widget.Toolbar>
 
-            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/swipe_refresh_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <ListView
-                    android:id="@+id/lv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/adView2"
-                    android:fastScrollAlwaysVisible="false"
-                    android:fastScrollEnabled="true">
-
-                </ListView>
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-            <HorizontalScrollView
-                android:id="@+id/scroll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:background="@color/colorPrimary">
-
-                <LinearLayout
-                    android:id="@+id/linear_scroll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:orientation="horizontal"></LinearLayout>
-
-            </HorizontalScrollView>
 
             <RelativeLayout
-                android:id="@+id/ad"
+                android:id="@+id/containerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/scroll"
-                android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/scroll">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/swipe_refresh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ListView
+                        android:id="@+id/lv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/adView2"
+                        android:fastScrollAlwaysVisible="false"
+                        android:fastScrollEnabled="true">
+
+                    </ListView>
+
+                </android.support.v4.widget.SwipeRefreshLayout>
 
             </RelativeLayout>
 
-        </RelativeLayout>
+
+            <android.support.design.widget.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/shitstuff"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:itemTextColor="@color/navitemcolor"
+                android:background="@color/nav"
+                app:itemIconTint="@color/navitemcolor"
+                app:itemBackground="@drawable/nav_item_drawable"
+                app:menu="@menu/menu_main">
+
+            </android.support.design.widget.NavigationView>
 
 
-        <android.support.design.widget.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/shitstuff"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:itemTextColor="#000">
+        </android.support.v4.widget.DrawerLayout>
 
-        </android.support.design.widget.NavigationView>
+    </LinearLayout>
+</layout>
 
-
-    </android.support.v4.widget.DrawerLayout>
-
-</LinearLayout>

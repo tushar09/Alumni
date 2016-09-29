@@ -1,6 +1,7 @@
 package tech.triumphit.alumni;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -39,6 +40,9 @@ public class Splash extends AppCompatActivity {
     @BindView(R.id.textView2)TextView aSociety;
     private AccessTokenTracker accessTokenTracker;
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,9 @@ public class Splash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
+        sp = getSharedPreferences("utils", MODE_PRIVATE);
+        editor = sp.edit();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -72,9 +79,15 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(Splash.this, MainActivity.class);
-                startActivity(i);
-
+                if(sp.getBoolean("loggedin", false)){
+                    Intent i = new Intent(Splash.this, Home.class);
+                    startActivity(i);
+                    finish();
+                }else{
+                    Intent i = new Intent(Splash.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
 
 //                try {
 //                    PackageInfo info = getPackageManager().getPackageInfo(

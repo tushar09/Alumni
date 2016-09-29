@@ -98,7 +98,7 @@
 
             <CheckBox
                 android:button="@drawable/apptheme_btn_check_holo_light"
-                android:text="remember me"
+                android:text="keep logged in"
                 android:textColor="#fff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             <EditText
                 android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/account_input"
-                android:inputType="textNoSuggestions"
+                android:inputType="textEmailAddress"
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

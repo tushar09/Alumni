@@ -1,10 +1,13 @@
 package tech.triumphit.alumni;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,10 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -66,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
     ActivityMainBinding binding;
 
     @Override
@@ -76,11 +85,40 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        sp = getSharedPreferences("utils", MODE_PRIVATE);
+        editor = sp.edit();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SignUp.class));
+            }
+        });
+        binding.content.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(binding.content.checkBox.isChecked()){
+
+
+                new MaterialDialog.Builder(MainActivity.this)
+                        .title("Alumni")
+                        .content("Are you sure to keep you logged in?")
+                        .positiveText("Yes")
+                        .negativeText("No")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                binding.content.checkBox.setChecked(true);
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                binding.content.checkBox.setChecked(false);
+                            }
+                        })
+                        .show();
+                }
             }
         });
 
@@ -93,6 +131,13 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
+                                    if(response.equals("we are good")){
+                                        if(binding.content.checkBox.isChecked()){
+                                            editor.putBoolean("loggedin", true);
+                                            editor.commit();
+                                        }
+                                        startActivity(new Intent(MainActivity.this, Home.class));
+                                    }
                                     Log.e("php error", response);
                                 }
                             },
