@@ -2,6 +2,7 @@ package tech.triumphit.alumni;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AlertDialog;
 import android.content.Intent;
@@ -26,11 +27,14 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +55,9 @@ public class Home extends AppCompatActivity {
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
     DrawerHolderBinding binding;
     NavDrawerHeaderBinding navDrawerHeaderBinding;
     private AlertDialog pd;
@@ -62,6 +69,9 @@ public class Home extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.drawer_holder);
         setSupportActionBar(binding.toolbar);
+
+        sp = getSharedPreferences("utils", MODE_PRIVATE);
+        editor = sp.edit();
 
         layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View vg = layoutInflater.inflate(R.layout.nav_drawer_header, null);
@@ -87,8 +97,19 @@ public class Home extends AppCompatActivity {
         mDrawerToggle.syncState();
 
         navDrawerHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_drawer_header, binding.shitstuff, true);
-        navDrawerHeaderBinding.textView12.setText("asdfasdfasdfadsfasd");
-        navDrawerHeaderBinding.profileImage.setBackgroundResource(R.drawable.account);
+        navDrawerHeaderBinding.textView12.setText(sp.getString("name", "Not Found"));
+        Picasso.with(this).load(new File(sp.getString("pic", "damn"))).into(navDrawerHeaderBinding.profileImage, new Callback() {
+            @Override
+            public void onSuccess() {
+                Log.e("From file", "Success");
+            }
+
+            @Override
+            public void onError() {
+                Picasso.with(Home.this).load(new File(sp.getString("picSecondary", "damn"))).into(navDrawerHeaderBinding.profileImage);
+                Log.e("From file", "Not Success");
+            }
+        });
 
     }
 

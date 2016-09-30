@@ -3,6 +3,7 @@ package tech.triumphit.alumni;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.os.Environment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
@@ -50,9 +52,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +74,9 @@ public class SignUp extends AppCompatActivity {
     ActivitySignUpBinding binding;
     private CallbackManager callbackManager;
     String id;
-    private ProgressDialog pd;
+
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,9 @@ public class SignUp extends AppCompatActivity {
 //        setContentView(R.layout.activity_sign_up);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        sp = getSharedPreferences("utils", MODE_PRIVATE);
+        editor = sp.edit();
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -200,6 +213,18 @@ public class SignUp extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     Toast.makeText(SignUp.this, response, Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
+                                    if(response.startsWith("Account created successfully")){
+                                        editor.putString("name", binding.sign.inputName.getText().toString());
+                                        BitmapDrawable drawable = (BitmapDrawable) binding.pro.getDrawable();
+                                        Bitmap bitmap = drawable.getBitmap();
+                                        String pic = storeImage(bitmap);
+                                        String picSecondary = response.replace("Account created successfully----------", "");
+                                        editor.putString("pic", pic);
+                                        editor.putString("picSecondary", picSecondary);
+                                        Log.e("Pic path", pic);
+                                        Log.e("picSecondary path", picSecondary);
+                                        editor.commit();
+                                    }
                                     Log.e("php error", response);
                                 }
                             },
@@ -263,6 +288,50 @@ public class SignUp extends AppCompatActivity {
         }else {
             Toast.makeText(this, "Please fill all fields with *", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String storeImage(Bitmap image) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.e("error",
+                    "Error creating media file, check storage permissions: ");// e.getMessage());
+            return "error";
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.d("error", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.d("error", "Error accessing file: " + e.getMessage());
+        }
+        return pictureFile.getPath();
+    }
+
+    private File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     private String getPropicBase64(ImageView pro) {
