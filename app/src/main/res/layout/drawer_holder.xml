@@ -59,8 +59,9 @@
                 app:itemTextColor="@color/navitemcolor"
                 android:background="@color/nav"
                 app:itemIconTint="@color/navitemcolor"
+                app:headerLayout="@layout/nav_drawer_header"
                 app:itemBackground="@drawable/nav_item_drawable"
-                app:menu="@menu/menu_main">
+                app:menu="@menu/navmenu">
 
             </android.support.design.widget.NavigationView>
 

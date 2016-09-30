@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/alumni"
+        android:title="Alumni"
+        android:icon="@drawable/account_multiple"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/network"
+        android:title="Network"
+        android:icon="@drawable/share_variant"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/jobposted"
+        android:title="Job Posted"
+        android:icon="@drawable/worker"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/settings"
+        android:title="Account Setting"
+        android:icon="@drawable/account_settings_variant"
+        app:showAsAction="always">
+
+    </item>
+</menu>

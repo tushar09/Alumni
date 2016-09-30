@@ -1,5 +1,6 @@
 package tech.triumphit.alumni;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -64,6 +66,7 @@ public class SignUp extends AppCompatActivity {
     ActivitySignUpBinding binding;
     private CallbackManager callbackManager;
     String id;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +184,7 @@ public class SignUp extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, responseCode, data);
     }
 
+    MaterialDialog dialog;
     private void checkValidity() {
         if(!binding.sign.inputName.getText().toString().equals("")
                 && !binding.sign.inputEmail.getText().toString().equals("")
@@ -189,11 +193,13 @@ public class SignUp extends AppCompatActivity {
 
             if(binding.sign.inputPassword.getText().toString().equals(binding.sign.inputPasswordConfirm.getText().toString())){
                 if(validate(binding.sign.inputEmail.getText().toString())){
+
                     StringRequest sr = new StringRequest(Request.Method.POST, "http://triumphit.tech/project_alumni/signup.php",
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     Toast.makeText(SignUp.this, response, Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
                                     Log.e("php error", response);
                                 }
                             },
@@ -238,6 +244,15 @@ public class SignUp extends AppCompatActivity {
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     RequestQueue requestQueue = Volley.newRequestQueue(this);
                     requestQueue.add(sr);
+
+                    MaterialDialog.Builder b = new MaterialDialog.Builder(this)
+                            .title("Creating Account")
+                            .content("please wait")
+                            .progress(true, 0)
+                            .cancelable(false)
+                            .progressIndeterminateStyle(true);
+                    dialog = b.build();
+                    dialog.show();
                 }else{
                     Toast.makeText(this, "Email address is not right", Toast.LENGTH_LONG).show();
                 }
