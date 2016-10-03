@@ -3,6 +3,7 @@ package tech.triumphit.alumni;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AlertDialog;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -108,6 +110,13 @@ public class Home extends AppCompatActivity {
             public void onError() {
                 Picasso.with(Home.this).load(new File(sp.getString("picSecondary", "damn"))).into(navDrawerHeaderBinding.profileImage);
                 Log.e("From file", "Not Success");
+            }
+        });
+        binding.shitstuff.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                startActivity(new Intent(Home.this, Profile.class));
+                return false;
             }
         });
 
