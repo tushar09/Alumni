@@ -37,4 +37,11 @@
         app:showAsAction="always">
 
     </item>
+    <item
+        android:id="@+id/update"
+        android:title="Update Profile"
+        android:icon="@drawable/update"
+        app:showAsAction="always">
+
+    </item>
 </menu>

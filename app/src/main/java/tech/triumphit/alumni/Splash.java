@@ -89,58 +89,8 @@ public class Splash extends AppCompatActivity {
                     finish();
                 }
 
-//                try {
-//                    PackageInfo info = getPackageManager().getPackageInfo(
-//                            "tech.triumphit.alumni",
-//                            PackageManager.GET_SIGNATURES);
-//                    for (Signature signature : info.signatures) {
-//                        MessageDigest md = MessageDigest.getInstance("SHA");
-//                        md.update(signature.toByteArray());
-//                        Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.NO_WRAP));
-//                    }
-//                } catch (PackageManager.NameNotFoundException e) {
-//
-//                } catch (NoSuchAlgorithmException e) {
-//
-//                }
-
                 finish();
             }
         }, 5000);
-//
-//
     }
-
-    public boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
-    }
-
-    private void updateWithToken(AccessToken currentAccessToken) {
-
-        if (currentAccessToken != null) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    Intent i = new Intent(Splash.this, Home.class);
-                    startActivity(i);
-
-                    finish();
-                }
-            }, 5000);
-        } else {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    Intent i = new Intent(Splash.this, MainActivity.class);
-                    startActivity(i);
-
-                    finish();
-                }
-            }, 5000);
-        }
-    }
-
 }

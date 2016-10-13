@@ -8,5 +8,6 @@
     <string name="facebook_app_id">1249792331727360</string>
     <string name="title_activity_sign_uo">SignUo</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_update_profile">UpdateProfile</string>
 
 </resources>

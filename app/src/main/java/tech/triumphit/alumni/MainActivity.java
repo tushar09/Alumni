@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -40,6 +41,11 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -154,11 +160,22 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
-                                    if(response.equals("we are good")){
+                                    if(response.startsWith("we are good")){
                                         if(binding.content.checkBox.isChecked()){
                                             editor.putBoolean("loggedin", true);
+                                            editor.putString("email", binding.content.inputEmail.getText().toString());
                                             editor.commit();
                                         }
+
+                                        editor.putString("email", binding.content.inputEmail.getText().toString());
+                                        response = response.replace("we are good", "");
+                                        Log.e("aluj", response.replace("we are good", ""));
+                                        if(!response.equals("")){
+                                            editor.putString("alumni", response);
+                                        }else{
+                                            editor.putString("alumni", "non");
+                                        }
+                                        editor.commit();
                                         startActivity(new Intent(MainActivity.this, Home.class));
                                     }
                                     Log.e("php error", response);
@@ -209,7 +226,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.content.inputEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.e("here", "focus gained");
+                Glide.with(MainActivity.this).load("http://triumphit.tech/project_alumni/images/" + binding.content.inputEmail.getText().toString() + ".jpeg").diskCacheStrategy(DiskCacheStrategy.ALL).fitCenter().into(binding.content.profileImage);
+            }
+        });
 
 
     }

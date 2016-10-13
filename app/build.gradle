@@ -38,6 +38,7 @@ android {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 
@@ -56,4 +57,5 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.afollestad.material-dialogs:core:0.9.0.2'
     compile 'com.intuit.sdp:sdp-android:1.0.3'
+    compile 'com.github.nguyenhoanglam:ImagePicker:1.1.2'
 }

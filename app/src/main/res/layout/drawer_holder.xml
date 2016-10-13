@@ -3,6 +3,7 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.inmobi.ads"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+        android:background="#e9e9eb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -46,6 +47,63 @@
                     </ListView>
 
                 </android.support.v4.widget.SwipeRefreshLayout>
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/ril"
+                    android:background="@color/home"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <EditText
+                        android:id="@+id/post"
+                        android:textColor="@color/nav_selected_color"
+                        android:padding="@dimen/_8sdp"
+                        android:background="@drawable/boxed_edittext"
+                        android:gravity="clip_vertical"
+                        android:hint="Share your thought"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_80sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@android:color/transparent"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:id="@+id/imageView11"
+                        android:layout_below="@+id/post"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignBottom="@+id/postPic" />
+
+                    <ImageButton
+                        android:id="@+id/postButton"
+                        android:background="@drawable/send"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignTop="@+id/postPic"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <ImageButton
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/postPic"
+                        android:background="@drawable/camera"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_below="@+id/post"
+                        android:layout_toLeftOf="@+id/postButton"
+                        android:layout_toStartOf="@+id/postButton" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

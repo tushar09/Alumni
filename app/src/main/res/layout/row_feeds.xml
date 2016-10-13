@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools">
+    <LinearLayout
+        android:padding="@dimen/_2sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="#fff"
+            card_view:cardCornerRadius="3dp"
+            card_view:cardElevation="5dp">
+
+            <RelativeLayout
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_15sdp"
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView23"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/profile_image"
+                    android:layout_toEndOf="@+id/profile_image" />
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView25"
+                    android:layout_below="@+id/textView23"
+                    android:layout_toRightOf="@+id/profile_image"
+                    android:layout_toEndOf="@+id/profile_image" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="#000"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:src="#000"
+                    app:civ_border_width="0dp"
+                    app:civ_border_color="#FF000000"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+                <ImageButton
+
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/heart"
+                    android:layout_below="@+id/imageView"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:id="@+id/imageButton" />
+                <View
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:id="@+id/view"
+                    android:layout_toRightOf="@+id/imageButton"
+                    android:background="#99000000"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignBottom="@+id/imageButton" />
+                <ImageButton
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/message_processing"
+                    android:layout_toRightOf="@+id/view"
+                    android:layout_below="@+id/imageView"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:id="@+id/imageButton2" />
+
+                <View
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:id="@+id/view2"
+                    android:layout_toRightOf="@+id/imageButton2"
+                    android:background="#99000000"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignBottom="@+id/imageButton" />
+                <ImageButton
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/share"
+                    android:layout_toRightOf="@+id/view2"
+                    android:layout_below="@+id/imageView"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:id="@+id/imageButton3" />
+                <View
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:id="@+id/view3"
+                    android:layout_toRightOf="@+id/imageButton3"
+                    android:background="#99000000"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignBottom="@+id/imageButton" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="TextView"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView26"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/imageView"
+                    android:layout_above="@+id/imageButton" />
+
+                <TextView
+                    android:text="+50K"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/view3"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/textView27" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_below="@+id/imageView"
+                    android:layout_toLeftOf="@+id/textView27"
+                    android:layout_alignBottom="@+id/view3">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="#000"
+                        app:civ_border_width="0dp"
+                        app:civ_border_color="#FF000000"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <ImageView
+                        android:background="@drawable/heart_lil"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</layout>

@@ -220,6 +220,7 @@ public class SignUp extends AppCompatActivity {
                                         String pic = storeImage(bitmap);
                                         String picSecondary = response.replace("Account created successfully----------", "");
                                         editor.putString("pic", pic);
+                                        editor.putString("email", binding.sign.inputEmail.getText().toString());
                                         editor.putString("picSecondary", picSecondary);
                                         Log.e("Pic path", pic);
                                         Log.e("picSecondary path", picSecondary);
