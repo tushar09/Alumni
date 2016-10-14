@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.BoolRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -90,7 +91,7 @@ import tech.triumphit.alumni.adapter.HomeNewsFeed;
 import tech.triumphit.alumni.databinding.DrawerHolderBinding;
 import tech.triumphit.alumni.databinding.NavDrawerHeaderBinding;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.textView3)
     TextView name;
@@ -115,7 +116,6 @@ public class Home extends AppCompatActivity {
     DrawerHolderBinding binding;
     NavDrawerHeaderBinding navDrawerHeaderBinding;
     private AlertDialog pd;
-    LayoutInflater layoutInflater;
     Animation animDown;
     private Animation animDownPostButon, animDownPost;
 
@@ -130,9 +130,6 @@ public class Home extends AppCompatActivity {
 
         sp = getSharedPreferences("utils", MODE_PRIVATE);
         editor = sp.edit();
-
-        layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View vg = layoutInflater.inflate(R.layout.nav_drawer_header, null);
 
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
 //        progressDialog.setIndeterminate(true);
@@ -175,8 +172,6 @@ public class Home extends AppCompatActivity {
                 return false;
             }
         });
-
-        getFeed();
 
         binding.postPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +246,7 @@ public class Home extends AppCompatActivity {
                                     @Override
                                     public void onResponse(String response) {
                                         Log.e("match", response);
+                                        binding.loadingView.smoothToHide();
                                         animatePosterInvisible();
                                         anim = true;
                                     }
@@ -313,6 +309,7 @@ public class Home extends AppCompatActivity {
                                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                         RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
                         requestQueue.add(sr);
+                        binding.loadingView.smoothToShow();
                     }
                 }
 
@@ -342,6 +339,16 @@ public class Home extends AppCompatActivity {
 
             }
         });
+
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
+        binding.swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        binding.swipeRefreshLayout.setRefreshing(true);
+                                        getFeed();
+                                    }
+                                }
+        );
 
     }
 
@@ -548,6 +555,7 @@ public class Home extends AppCompatActivity {
                                 }
 
                                 binding.lv.setAdapter(new HomeNewsFeed(Home.this, name, postPic, date, propic, postText, totalLike, likerProPic));
+                                binding.swipeRefreshLayout.setRefreshing(false);
 
                             } catch (JSONException e) {
                                 Log.e("error", e.toString());
@@ -619,5 +627,10 @@ public class Home extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        getFeed();
     }
 }

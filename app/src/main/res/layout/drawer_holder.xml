@@ -93,16 +93,27 @@
                         android:layout_alignParentEnd="true" />
 
                     <ImageButton
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/_20sdp"
                         android:id="@+id/postPic"
                         android:background="@drawable/camera"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
                         android:layout_below="@+id/post"
                         android:layout_toLeftOf="@+id/postButton"
                         android:layout_toStartOf="@+id/postButton" />
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:visibility="gone"
+                        android:id="@+id/loadingView"
+                        android:layout_marginRight="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_below="@+id/post"
+                        android:layout_toLeftOf="@+id/postPic"
+                        app:indicatorName="BallRotateIndicator"
+                        app:indicatorColor="#92959e"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp" />
                 </RelativeLayout>
 
             </RelativeLayout>
